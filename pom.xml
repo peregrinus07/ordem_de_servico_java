@@ -5,7 +5,7 @@
 	<groupId>hibernate</groupId>
 	<artifactId>hibernate</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 
 
@@ -43,22 +43,22 @@
 
 		</plugins>
 	</build>
-	
+
 	<dependencies>
-	
-	<dependency>
-         <groupId>org.hibernate</groupId>
-         <artifactId>hibernate-core</artifactId>
-         <version>5.1.0.Final</version>
-     </dependency>
- 
-     <!-- http://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
-     <dependency>
-         <groupId>org.hibernate</groupId>
-         <artifactId>hibernate-entitymanager</artifactId>
-         <version>5.1.0.Final</version>
-     </dependency>
- 
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.1.0.Final</version>
+		</dependency>
+
+		<!-- http://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>5.1.0.Final</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -66,7 +66,19 @@
 			<version>6.0.5</version>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
 
+<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat</artifactId>
+			<version>9.0.10</version>
+			<type>pom</type>
+		</dependency>
 	</dependencies>
 
 
