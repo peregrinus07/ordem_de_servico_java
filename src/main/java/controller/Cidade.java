@@ -42,7 +42,47 @@ public class Cidade<E> extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+ 
+    private List listarCidades(String id) {
+ 
+
+    	EntityManagerFactory factory = Persistence.
+                createEntityManagerFactory("hibernate");
+        EntityManager manager = factory.createEntityManager();
+
+        TabelaEstado uf = new TabelaEstado();
+        
+        //TabelaEstado estado = manager.find(uf.getClass(), 1);
+        //System.out.println(estado.getTabelaCidades().get(0));        
+
+        String sql = "SELECT t FROM TabelaEstado t where sigla_estado='"+id+"'";
+         
+        	    List<TabelaEstado> lista = manager
+        	        .createQuery(sql)
+        	        .getResultList();
+ 
+         System.out.println("lista tabela"+lista.get(0).getTabelaCidades().size());
+         
+         List<TabelaCidade> c = lista.get(0).getTabelaCidades();
+         
+        List cities = new ArrayList();
+		 // cities.add("cidade");
+
+		 for (TabelaCidade tarefa : c) {
+	     //       System.out.println(tarefa.getNomeCidade());
+			 cities.add("<option>"+tarefa.getNomeCidade()+"</option>");
+		     //cities.add("<option>cidade 2</option>");
+		          
+	        }   
+        //List<TabelaCidade> cities =  estado.get(0).getTabelaCidades();
+    	
+        manager.close(); 
+          
+    	return cities;
+
+	}
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.out.println("<option>cidade</option>");
@@ -106,52 +146,31 @@ public class Cidade<E> extends HttpServlet {
 		//int d = objects.size();
 		//int a = 0;
 		
-		EntityManagerFactory factory = Persistence.
-                createEntityManagerFactory("hibernate");
-        EntityManager manager = factory.createEntityManager();
-
-        TabelaEstado uf = new TabelaEstado();
-        
-        TabelaEstado estado = manager.find(uf.getClass(), 1);
-        //System.out.println(estado.getTabelaCidades().get(0));        
-
-        List<TabelaCidade> lista = estado.getTabelaCidades();
-        
-        for (TabelaCidade tarefa : lista) {
-            System.out.println(tarefa.getNomeCidade());
-            
-        }
-        System.out.println(estado.getTabelaCidades().size());        
-        
-        manager.close();
-		//System.out.println("teste");
 		
-		
-		
-		
-		int d = lista.size();
-		int a = 0;
-		List cities = new ArrayList();
-		  
-
-		 for (TabelaCidade tarefa : lista) {
-	     //       System.out.println(tarefa.getNomeCidade());
-			 cities.add("<option>"+tarefa.getNomeCidade()+"</option>");
-		     //cities.add("<option>cidade 2</option>");
-		          
-	        }      
-	            
-		  
-		  
+        //System.out.println(estado.getTabelaCidades().size());        
         
-        try (PrintWriter out = response.getWriter()) {
+		//List<TabelaCidade> lista = new ArrayList<TabelaCidade>();
+		
+		//lista = listarCidades();
+		//System.out.println("teste "+lista.size());
+		
 
-            Gson gson = new GsonBuilder()
-                    .excludeFieldsWithoutExposeAnnotation()
-                    .create();
+    	//List<TabelaEstado> lista = null;
+    	 	
+		 List cities = listarCidades(id); 
+		 
+		 System.out.println("cits"+cities.size());
+		 
+ 
+		   try (PrintWriter out = response.getWriter()) {
 
-            out.print(gson.toJson(cities));
-        }
-	}
+	            Gson gson = new GsonBuilder()
+	                    .excludeFieldsWithoutExposeAnnotation()
+	                    .create();
+
+	            out.print(gson.toJson(cities));
+	        }
+	       		  
+	} 
 
 }
