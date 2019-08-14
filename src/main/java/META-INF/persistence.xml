@@ -3,6 +3,8 @@
 	<persistence-unit name="hibernate" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>hibernate.TabelaCliente</class>
+		<class>model.TabelaCidade</class>
+		<class>model.TabelaEstado</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistemaDeVendas"/>
