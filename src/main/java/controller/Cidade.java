@@ -20,6 +20,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.mysql.cj.x.json.JsonArray;
 
+import model.TabelaBairro;
 import model.TabelaCidade;
 import model.TabelaEstado;
 
@@ -66,9 +67,18 @@ public class Cidade<E> extends HttpServlet {
 		List cities = new ArrayList();
 		// cities.add("cidade");
 
+		if(c.size()==0) {
+			cities.add("<option>Cadastre uma Cidade</option>");
+		} 
+		
+		else {
+			cities.add("<option>Selecione uma Cidade</option>");
+		}
+		
+		 
 		for (TabelaCidade tarefa : c) {
 			// System.out.println(tarefa.getNomeCidade());
-			cities.add("<option>" + tarefa.getNomeCidade() + "</option>");
+			cities.add("<option  value='"+ tarefa.getIdCidade() +" '>" + tarefa.getNomeCidade() + "</option>");
 			// cities.add("<option>cidade 2</option>");
 
 		}
@@ -78,8 +88,41 @@ public class Cidade<E> extends HttpServlet {
 
 		return cities;
 
-	}
+	} // func listar cidades
 
+	
+	private List listarBairros(String uf, String cidade) {
+
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
+		EntityManager manager = factory.createEntityManager();
+
+		TabelaCidade c = new TabelaCidade();
+		 
+		String sql = "SELECT t FROM TabelaCidade t where id_cidade= '" + cidade + "'";
+		
+		List<TabelaCidade> lista = manager.createQuery(sql).getResultList();
+
+		List<TabelaBairro> bairro = lista.get(0).getTabelaBairros();
+		
+		List bairros= new ArrayList();
+		
+		System.out.println("lista tabela: " + bairro.size());
+   
+		for (TabelaBairro tarefa : bairro) {
+			System.out.println("bairro: "+tarefa.getNomeBairro());
+			bairros.add("<option  value='"+ tarefa.getIdBairro() +" '>" + tarefa.getNomeBairro() + "</option>");
+			// cities.add("<option>cidade 2</option>");
+
+		}
+		  
+		//List cities = new ArrayList();
+		
+		System.out.println("cidade: "+cidade);
+		 
+		return bairros;
+
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -128,6 +171,30 @@ public class Cidade<E> extends HttpServlet {
 			 
 			break;
 
+		case "bairros":
+		    System.out.println("listar bairros");
+		    String cidade = request.getParameter("id");
+		    String estado = request.getParameter("estado");
+		    System.out.println("cidade: "+cidade);
+		    System.out.println("estado: "+estado); 
+		    
+		    List bairros =listarBairros(estado, cidade);
+		    
+		    if (bairros.size()==0) {
+				bairros.add("<option>vazio</option");
+			}
+ 
+			   try (PrintWriter out = response.getWriter()) {
+
+		            Gson gson = new GsonBuilder()
+		                    .excludeFieldsWithoutExposeAnnotation()
+		                    .create();
+
+		            out.print(gson.toJson(bairros));
+		        } 
+		    
+		    break;
+			
 		default:
 			break;
 		}

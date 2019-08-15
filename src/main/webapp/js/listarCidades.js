@@ -56,13 +56,14 @@ $( document ).ready(function() {
 
     var $nomeAluno = $("#cidades");
 
+    var $estado = $("#estados").val();
     //alert($nomeCidade.val());
-
+    //alert($estado);
     $.ajax({
         
                   url: 'Cidade',
                   type: 'POST',
-                  data: {id: $nomeAluno.val(), logradouro:"bairros"},
+                  data: {id: $nomeAluno.val(), logradouro:"bairros", estado: $estado,},
         
                   beforeSend: function(){
                   $("#bairro").css({'display':'block'});
