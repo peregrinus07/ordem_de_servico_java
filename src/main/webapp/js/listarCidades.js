@@ -1,8 +1,6 @@
 
 $( document ).ready(function() {
-
-    
-
+ 
  $("#estados").change(function() {
     //$('#pesquisaCliente').keyup(function(){
          
@@ -21,7 +19,7 @@ $( document ).ready(function() {
 
           url: 'Cidade',
           type: 'POST',
-          data: {id: $nomeAluno.val()},
+          data: {id: $nomeAluno.val(), logradouro:"cidades"},
 
           beforeSend: function(){
           $("#cidades").css({'display':'block'});
@@ -54,7 +52,7 @@ $( document ).ready(function() {
 
    $("#cidades").change(function() {
 
-    //alert();
+     //alert();
 
     var $nomeAluno = $("#cidades");
 
@@ -62,9 +60,9 @@ $( document ).ready(function() {
 
     $.ajax({
         
-                  url: 'listar_bairros_jquery.php',
+                  url: 'Cidade',
                   type: 'POST',
-                  data: {id: $nomeAluno.val()},
+                  data: {id: $nomeAluno.val(), logradouro:"bairros"},
         
                   beforeSend: function(){
                   $("#bairro").css({'display':'block'});

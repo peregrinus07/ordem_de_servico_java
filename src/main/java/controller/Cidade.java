@@ -25,152 +25,112 @@ import model.TabelaEstado;
 
 /**
  * Servlet implementation class Cidade
+ * 
  * @param <E>
  */
 @WebServlet("/Cidade")
 public class Cidade<E> extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Cidade() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
- 
-    private List listarCidades(String id) {
- 
+	public Cidade() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    	EntityManagerFactory factory = Persistence.
-                createEntityManagerFactory("hibernate");
-        EntityManager manager = factory.createEntityManager();
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 
-        TabelaEstado uf = new TabelaEstado();
-        
-        //TabelaEstado estado = manager.find(uf.getClass(), 1);
-        //System.out.println(estado.getTabelaCidades().get(0));        
+	private List listarCidades(String id) {
 
-        String sql = "SELECT t FROM TabelaEstado t where sigla_estado='"+id+"'";
-         
-        	    List<TabelaEstado> lista = manager
-        	        .createQuery(sql)
-        	        .getResultList();
- 
-         System.out.println("lista tabela"+lista.get(0).getTabelaCidades().size());
-         
-         List<TabelaCidade> c = lista.get(0).getTabelaCidades();
-         
-        List cities = new ArrayList();
-		 // cities.add("cidade");
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
+		EntityManager manager = factory.createEntityManager();
 
-		 for (TabelaCidade tarefa : c) {
-	     //       System.out.println(tarefa.getNomeCidade());
-			 cities.add("<option>"+tarefa.getNomeCidade()+"</option>");
-		     //cities.add("<option>cidade 2</option>");
-		          
-	        }   
-        //List<TabelaCidade> cities =  estado.get(0).getTabelaCidades();
-    	
-        manager.close(); 
-          
-    	return cities;
+		TabelaEstado uf = new TabelaEstado();
+
+		// TabelaEstado estado = manager.find(uf.getClass(), 1);
+		// System.out.println(estado.getTabelaCidades().get(0));
+
+		String sql = "SELECT t FROM TabelaEstado t where sigla_estado='" + id + "'";
+
+		List<TabelaEstado> lista = manager.createQuery(sql).getResultList();
+
+		System.out.println("lista tabela" + lista.get(0).getTabelaCidades().size());
+
+		List<TabelaCidade> c = lista.get(0).getTabelaCidades();
+
+		List cities = new ArrayList();
+		// cities.add("cidade");
+
+		for (TabelaCidade tarefa : c) {
+			// System.out.println(tarefa.getNomeCidade());
+			cities.add("<option>" + tarefa.getNomeCidade() + "</option>");
+			// cities.add("<option>cidade 2</option>");
+
+		}
+		// List<TabelaCidade> cities = estado.get(0).getTabelaCidades();
+
+		manager.close();
+
+		return cities;
 
 	}
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.out.println("<option>cidade</option>");
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
-		//System.out.println("cidade");
-		//request.setAttribute("cidade", d);
-		//response.setContentType("text/plain");
-		//response.setCharacterEncoding("UTF-8");
-	   //response.setContentType("application/json");
-//	   response.getWriter().write("cidade");
-	   //String json;
-	   //json = new Gson().toJson(someObject); 
-	   //response.setContentType("application/json"); 
-	   //response.setCharacterEncoding("UTF-8"); 
-	   //response.getWriter().write("cidade");
-    //    response.setContentType("application/json"); response.setCharacterEncoding("utf-8"); 
-	   //response.getWriter().write("cidade");
-	   //PrintWriter out; 
-	  // System.out.println("cidade");
-//	   String name = request.getParameter("name");
-	   //response.getWriter().print("Hello "+ name + "!!");
-	   //response.getWriter().write("cidade");
-		response.setContentType("text/plain");
-		//String fullname = request.getParameter("id");
-		//System.out.println("cidade");
-		//PrintWriter out = response.getWriter();
- 			//out.printf("<option>teste</option>");
-	   
- 			//JsonArray ob = new JsonArray();
- 		///	JSONObject my_obj = new JSONObject();
- 			
- 			//JsonObject objeto = new JsonObject();
- 			//String[] cidade = null;
- 			//cidade[0]="cidade";
- 			//String[] cidade = null;
- 			//cidade[0]="cidade";
- 			//cidade.add("cidade");
- 			//response.getWriter().print(cidade);
- 			//request.setAttribute("lista", cidade);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		String id = request.getParameter("id");
-		
-		System.out.println("id: "+id);
-        response.setContentType("application/json;charset=UTF-8");
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 
-        
-        //EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");		
-   	 
-		//EntityManager manager = factory.createEntityManager();
-		
-		String sql ="select * from tabela_estado where sigla_estado='"+id+"'"; 
-		
-		//Query query = manager.createNativeQuery(sql); List<Object[]> objects = query.getResultList(); 
-		//int d = objects.size();
-		//int a = 0;
-		
-		
-        //System.out.println(estado.getTabelaCidades().size());        
-        
-		//List<TabelaCidade> lista = new ArrayList<TabelaCidade>();
-		
-		//lista = listarCidades();
-		//System.out.println("teste "+lista.size());
-		
+		String name = request.getParameter("logradouro");
 
-    	//List<TabelaEstado> lista = null;
-    	 	
-		 List cities = listarCidades(id); 
-		 
-		 System.out.println("cits"+cities.size());
-		 
+		switch (name) {
+		case "cidades":
+
+			System.out.println(name);
+			String id = request.getParameter("id");
+
+			List cities = listarCidades(id);
+
+			System.out.println("uf: " + id);
+
+			System.out.println("tamanho da lista cidades: " + cities.size());
+
+
+			 if (cities.size()==0) {
+				cities.add("<option>vazio</option");
+			}
  
-		   try (PrintWriter out = response.getWriter()) {
+			   try (PrintWriter out = response.getWriter()) {
 
-	            Gson gson = new GsonBuilder()
-	                    .excludeFieldsWithoutExposeAnnotation()
-	                    .create();
+		            Gson gson = new GsonBuilder()
+		                    .excludeFieldsWithoutExposeAnnotation()
+		                    .create();
 
-	            out.print(gson.toJson(cities));
-	        }
-	       		  
-	} 
+		            out.print(gson.toJson(cities));
+		        }
+			 
+			 
+			break;
+
+		default:
+			break;
+		}
+	}
 
 }
