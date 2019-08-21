@@ -2,8 +2,13 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,13 +20,47 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.persistence.config.ReferenceMode;
+import org.eclipse.persistence.descriptors.ClassDescriptor;
+import org.eclipse.persistence.descriptors.partitioning.PartitioningPolicy;
+import org.eclipse.persistence.exceptions.DatabaseException;
+import org.eclipse.persistence.exceptions.EclipseLinkException;
+import org.eclipse.persistence.exceptions.ExceptionHandler;
+import org.eclipse.persistence.exceptions.IntegrityChecker;
+import org.eclipse.persistence.exceptions.ValidationException;
+import org.eclipse.persistence.expressions.Expression;
+import org.eclipse.persistence.history.AsOfClause;
+import org.eclipse.persistence.internal.databaseaccess.Platform;
+import org.eclipse.persistence.logging.SessionLog;
+import org.eclipse.persistence.logging.SessionLogEntry;
+import org.eclipse.persistence.platform.database.DatabasePlatform;
+import org.eclipse.persistence.platform.server.ServerPlatform;
+import org.eclipse.persistence.queries.AttributeGroup;
+import org.eclipse.persistence.queries.Call;
+import org.eclipse.persistence.queries.DatabaseQuery;
+import org.eclipse.persistence.sessions.DatabaseLogin;
+import org.eclipse.persistence.sessions.ExternalTransactionController;
+import org.eclipse.persistence.sessions.IdentityMapAccessor;
+import org.eclipse.persistence.sessions.Login;
+import org.eclipse.persistence.sessions.ObjectCopyingPolicy;
+import org.eclipse.persistence.sessions.Project;
+import org.eclipse.persistence.sessions.Session;
+import org.eclipse.persistence.sessions.SessionEventManager;
+import org.eclipse.persistence.sessions.SessionProfiler;
+import org.eclipse.persistence.sessions.UnitOfWork;
+import org.eclipse.persistence.sessions.serializers.Serializer;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.mysql.cj.x.json.JsonArray;
 
+import antlr.ByteBuffer;
 import model.TabelaBairro;
 import model.TabelaCidade;
+import model.TabelaDescricaoRua;
 import model.TabelaEstado;
 
 /**
@@ -29,10 +68,10 @@ import model.TabelaEstado;
  * 
  * @param <E>
  */
-@WebServlet("/Cidade")
+@WebServlet("/Cidade/*")
 public class Cidade<E> extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+ 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -121,15 +160,165 @@ public class Cidade<E> extends HttpServlet {
 		 
 		return bairros;
 
-	}
+	} // listar bairros
+	
+	private String[] listarRuas(String id) {
+
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
+		EntityManager manager = factory.createEntityManager();
+
+		TabelaBairro bairro = new TabelaBairro();
+
+		// TabelaEstado estado = manager.find(uf.getClass(), 1);
+		// System.out.println(estado.getTabelaCidades().get(0));
+
+		String sql = "SELECT t FROM TabelaBairro t where id_bairro='" +id+"'";
+ 
+		System.out.println("sql: "+sql);
+ 		
+		List<TabelaBairro> lista = manager.createQuery(sql).getResultList();
+    
+		System.out.println("lista tabela: " + lista.get(0).getTabelaDescricaoRuas().size());
+  
+		//List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas();
+		List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas(); 
+		List cities = new ArrayList();
+		// cities.add("cidade");
+ 
+		int sizeRua = c.size();
+		int b = sizeRua -1; 
+		
+		System.out.println("lista: "+sizeRua);
+		String[] ruasLista = new String[b];
+		 
+		if(c.size()==0) {
+			cities.add("<option>Cadastre uma Rua</option>");
+		} 
+		
+		else {
+			cities.add("Listando ruas");
+		}  
+		 
+		System.out.println("id do bairro: "+lista.get(0).getTabelaCidade().getNomeCidade());
+		System.out.println("descrição rua: "+c.size());
+		    
+		int a = sizeRua-1;
+		int contador = 0;
+		
+		for (TabelaDescricaoRua tarefa : c) {  
+			  System.out.println("rua teste: "+tarefa.getNomeDaRua());
+			cities.add(tarefa.getNomeDaRua());
+			 
+			if(contador <= a ) {
+				
+				ruasLista[contador]=tarefa.getNomeDaRua();
+				System.out.println("contador"+contador);
+				contador++;
+			}
+			
+			
+			
+			// cities.add("<option>cidade 2</option>");
+
+		}
+		// List<TabelaCidade> cities = estado.get(0).getTabelaCidades();
+
+		manager.close();
+
+		return ruasLista;
+
+	} // func listar cidades
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println("<option>cidade</option>");
-	}
+		//System.out.println("<option>cidade</option>");
+		
+		response.setContentType("text/html;charset=UTF-8");
+		String name = request.getParameter("rua");
+		String teste = request.getParameter("teste");
+		System.out.println("logradouro: "+name+" bairro: "+teste);
+		
+		String[] ruas = new String[1];
+		ruas[0]="cidade";
+		
+	 		 
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
+		EntityManager manager = factory.createEntityManager();
 
+		TabelaBairro bairro = new TabelaBairro();
+
+		// TabelaEstado estado = manager.find(uf.getClass(), 1);
+		// System.out.println(estado.getTabelaCidades().get(0));
+
+		String sql = "SELECT t FROM TabelaBairro t where id_bairro='" +teste+"'";
+		
+		System.out.println("sql: "+sql);  
+ 		    
+		List<TabelaBairro> lista = manager.createQuery(sql).getResultList();
+ 
+		
+		
+		System.out.println("lista tabela: "+lista.get(0).getTabelaDescricaoRuas().size());
+		
+		System.out.println("rua: lista "+ruas.length);
+		
+
+		//List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas();
+		List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas(); 
+		List cities = new ArrayList();
+		// cities.add("cidade");
+		int sizeRua = c.size();
+		int b = sizeRua; 
+		
+		System.out.println("lista: "+sizeRua);
+		String[] ruasLista = new String[b];
+		 
+		if(c.size()==0) {
+			cities.add("<option>Cadastre uma Rua</option>");
+		} 
+		
+		else {
+			cities.add("Listando ruas");
+		}  
+		
+		
+		System.out.println("id do bairro: "+lista.get(0).getTabelaCidade().getNomeCidade());
+		System.out.println("descrição rua: "+c.size());
+		    
+		int a = sizeRua-1;
+		int contador = 0;
+		
+
+		for (TabelaDescricaoRua tarefa : c) {  
+			   System.out.println("rua teste: "+tarefa.getNomeDaRua());
+			cities.add(tarefa.getNomeDaRua());
+		 
+			if(contador <= a ) {
+		 		 
+				ruasLista[contador]= tarefa.getNomeDaRua() ;
+				System.out.println("contador"+contador);
+				System.out.println("Rua: "+ruasLista[a]);
+				contador++;  
+			} 
+		}
+		 
+		 
+		System.out.println("lista rua: "+ruasLista.length);
+		
+		 try (PrintWriter out = response.getWriter()) {
+			 
+	            Gson gson = new GsonBuilder()
+	                    .excludeFieldsWithoutExposeAnnotation()
+	                    .create();
+
+	            out.print(gson.toJson(ruasLista));
+	        } 
+		   
+		 
+	}
+  
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -193,8 +382,29 @@ public class Cidade<E> extends HttpServlet {
 		            out.print(gson.toJson(bairros));
 		        } 
 		    
-		    break;
+		    break; 
 			
+		case "logradouro":
+			
+			
+			String[] lista = new String[2];
+			
+			lista[0]="cidade";
+			lista[1]="cidade";
+			
+			System.out.println("lista de ruas");
+			 
+			  try (PrintWriter out = response.getWriter()) {
+ 
+		            Gson gson = new GsonBuilder()
+		                    .excludeFieldsWithoutExposeAnnotation()
+		                    .create();
+ 
+		            out.print(gson.toJson(lista));
+		        } 
+			
+			break;
+		    
 		default:
 			break;
 		}

@@ -5,6 +5,7 @@
 		<class>hibernate.TabelaCliente</class>
 		<class>model.TabelaBairro</class>
 		<class>model.TabelaCidade</class>
+		<class>model.TabelaDescricaoRua</class>
 		<class>model.TabelaEstado</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
@@ -20,6 +21,9 @@
           <!-- 
           <property name="hibernate.hbm2ddl.auto" value="update" />
 		 -->
+		 <!-- 
+		 <property name="hibernate.connection.charSet" value="iso-8859-1"/>
+		  -->   
 		</properties>
 		
 	</persistence-unit>

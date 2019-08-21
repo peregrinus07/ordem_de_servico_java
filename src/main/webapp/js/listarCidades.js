@@ -122,7 +122,7 @@ $( document ).ready(function() {
 
         var rua = $("#endereco").val()
         var teste = $("#bairro option:selected").val();
-
+        var logradouro = "logradouro"; 
 
  
          //alert(teste);
@@ -140,15 +140,46 @@ $( document ).ready(function() {
 
     //alert("uia");    
 
-
-
+        /*
+       
+        $.ajax({
+            
+            url: 'Cidade',
+            type: 'POST',
+            data: {logradouro:"logradouro", id:teste },
+  
+            beforeSend: function(){
+           // $("#bairro").css({'display':'block'});
+              //$("body").html('<p>Carregando...</p>');
+             // $("#bairro").html('<p>Carregando</p>');
+  
+          },
+  
+            success: function(data)
+                  {
+                    console.log(data);
+                      
+                     // $("#bairro").html(data);
+                       
+                  },
+  
+                   error: function(data)
+                  {
+                       
+                      //alert("erro ao carregar cidades");
+                  }
+  
+          }); // ajax
+*/
+	 
+        
     //console.log("bairro selecionado: "+teste);
    $("#endereco").autocomplete({
     
 
 
      // fonte dos dados
-     source: "buscar_endereco.php?rua="+rua+"&teste=" + teste + "",
+     source: "Cidade?rua="+rua+"&teste=" + teste +"&logradouro="+logradouro+ "",
 
       });
 
