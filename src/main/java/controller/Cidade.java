@@ -71,7 +71,7 @@ import model.TabelaEstado;
 @WebServlet("/Cidade/*")
 public class Cidade<E> extends HttpServlet {
 	private static final long serialVersionUID = 1L;
- 
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -106,18 +106,17 @@ public class Cidade<E> extends HttpServlet {
 		List cities = new ArrayList();
 		// cities.add("cidade");
 
-		if(c.size()==0) {
+		if (c.size() == 0) {
 			cities.add("<option>Cadastre uma Cidade</option>");
-		} 
-		
+		}
+
 		else {
 			cities.add("<option>Selecione uma Cidade</option>");
 		}
-		
-		 
+
 		for (TabelaCidade tarefa : c) {
 			// System.out.println(tarefa.getNomeCidade());
-			cities.add("<option  value='"+ tarefa.getIdCidade() +" '>" + tarefa.getNomeCidade() + "</option>");
+			cities.add("<option  value='" + tarefa.getIdCidade() + " '>" + tarefa.getNomeCidade() + "</option>");
 			// cities.add("<option>cidade 2</option>");
 
 		}
@@ -129,39 +128,38 @@ public class Cidade<E> extends HttpServlet {
 
 	} // func listar cidades
 
-	
 	private List listarBairros(String uf, String cidade) {
 
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
 		EntityManager manager = factory.createEntityManager();
 
 		TabelaCidade c = new TabelaCidade();
-		 
+
 		String sql = "SELECT t FROM TabelaCidade t where id_cidade= '" + cidade + "'";
-		
+
 		List<TabelaCidade> lista = manager.createQuery(sql).getResultList();
 
 		List<TabelaBairro> bairro = lista.get(0).getTabelaBairros();
-		
-		List bairros= new ArrayList();
-		
+
+		List bairros = new ArrayList();
+
 		System.out.println("lista tabela: " + bairro.size());
-   
+
 		for (TabelaBairro tarefa : bairro) {
-			System.out.println("bairro: "+tarefa.getNomeBairro());
-			bairros.add("<option  value='"+ tarefa.getIdBairro() +" '>" + tarefa.getNomeBairro() + "</option>");
+			System.out.println("bairro: " + tarefa.getNomeBairro());
+			bairros.add("<option  value='" + tarefa.getIdBairro() + " '>" + tarefa.getNomeBairro() + "</option>");
 			// cities.add("<option>cidade 2</option>");
 
 		}
-		  
-		//List cities = new ArrayList();
-		
-		System.out.println("cidade: "+cidade);
-		 
+
+		// List cities = new ArrayList();
+
+		System.out.println("cidade: " + cidade);
+
 		return bairros;
 
 	} // listar bairros
-	
+
 	private String[] listarRuas(String id) {
 
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
@@ -172,52 +170,50 @@ public class Cidade<E> extends HttpServlet {
 		// TabelaEstado estado = manager.find(uf.getClass(), 1);
 		// System.out.println(estado.getTabelaCidades().get(0));
 
-		String sql = "SELECT t FROM TabelaBairro t where id_bairro='" +id+"'";
- 
-		System.out.println("sql: "+sql);
- 		
+		String sql = "SELECT t FROM TabelaBairro t where id_bairro='" + id + "'";
+
+		System.out.println("sql: " + sql);
+
 		List<TabelaBairro> lista = manager.createQuery(sql).getResultList();
-    
+
 		System.out.println("lista tabela: " + lista.get(0).getTabelaDescricaoRuas().size());
-  
-		//List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas();
-		List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas(); 
+
+		// List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas();
+		List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas();
 		List cities = new ArrayList();
 		// cities.add("cidade");
- 
+
 		int sizeRua = c.size();
-		int b = sizeRua -1; 
-		
-		System.out.println("lista: "+sizeRua);
+		int b = sizeRua - 1;
+
+		System.out.println("lista: " + sizeRua);
 		String[] ruasLista = new String[b];
-		 
-		if(c.size()==0) {
+
+		if (c.size() == 0) {
 			cities.add("<option>Cadastre uma Rua</option>");
-		} 
-		
+		}
+
 		else {
 			cities.add("Listando ruas");
-		}  
-		 
-		System.out.println("id do bairro: "+lista.get(0).getTabelaCidade().getNomeCidade());
-		System.out.println("descrição rua: "+c.size());
-		    
-		int a = sizeRua-1;
+		}
+
+		System.out.println("id do bairro: " + lista.get(0).getTabelaCidade().getNomeCidade());
+		System.out.println("descrição rua: " + c.size());
+
+		int a = sizeRua - 1;
 		int contador = 0;
-		
-		for (TabelaDescricaoRua tarefa : c) {  
-			  System.out.println("rua teste: "+tarefa.getNomeDaRua());
+
+		for (TabelaDescricaoRua tarefa : c) {
+			System.out.println("rua teste: " + tarefa.getNomeDaRua());
 			cities.add(tarefa.getNomeDaRua());
-			 
-			if(contador <= a ) {
-				
-				ruasLista[contador]=tarefa.getNomeDaRua();
-				System.out.println("contador"+contador);
+
+			if (contador <= a) {
+
+				ruasLista[contador] = tarefa.getNomeDaRua();
+				System.out.println("contador" + contador);
 				contador++;
 			}
-			
-			
-			
+
 			// cities.add("<option>cidade 2</option>");
 
 		}
@@ -228,99 +224,118 @@ public class Cidade<E> extends HttpServlet {
 		return ruasLista;
 
 	} // func listar cidades
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
-		//System.out.println("<option>cidade</option>");
-		
+		// System.out.println("<option>cidade</option>");
+
 		response.setContentType("text/html;charset=UTF-8");
-		String name = request.getParameter("rua");
+		String rua = request.getParameter("rua");
 		String teste = request.getParameter("teste");
-		System.out.println("logradouro: "+name+" bairro: "+teste);
-		
+		System.out.println("logradouro: " + rua + " bairro: " + teste);
+
 		String[] ruas = new String[1];
-		ruas[0]="cidade";
-		
+		ruas[0] = "cidade";
+
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
 		EntityManager manager = factory.createEntityManager();
 
-		
-		//TabelaBairro bairro = new TabelaBairro();
+		// TabelaBairro bairro = new TabelaBairro();
 
 		TabelaDescricaoRua listarua = new TabelaDescricaoRua();
-		
+
 		// TabelaEstado estado = manager.find(uf.getClass(), 1);
 		// System.out.println(estado.getTabelaCidades().get(0));
 
-		//String sql = "SELECT t FROM TabelaBairro t where id_bairro='1' and t.nomeBairro like '%ald%'";
-		String sql = "SELECT t FROM TabelaDescricaoRua t where id_bairro='1' and t.nomeDaRua like '%avenida%'";
+		// String sql = "SELECT t FROM TabelaBairro t where id_bairro='1' and
+		// t.nomeBairro like '%ald%'";
+		String sql = "SELECT t FROM TabelaDescricaoRua t where id_bairro='" + teste + "' and t.nomeDaRua like '%" + rua
+				+ "%'";
 		// and t.nomeBairro like '%ald%'
-		System.out.println("sql: "+sql);     
- 		         
-		Query query = manager.createQuery(sql); 
+		System.out.println("sql: " + sql);
+
+		Query query = manager.createQuery(sql);
 		List<TabelaDescricaoRua> lista = query.getResultList();
-		     
-		System.out.println("lista tabela: "+lista.size());
-		   
-		//System.out.println("rua: lista "+ruas.length);
-		
- 
-		 //List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas();
-		//List<TabelaDescricaoRua> c = lista.get(0).get; 
+
+		System.out.println("lista tabela: " + lista.size());
+
+		// System.out.println("rua: lista "+ruas.length);
+
+		// List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas();
+		// List<TabelaDescricaoRua> c = lista.get(0).get;
 		List cities = new ArrayList();
 		// cities.add("cidade");
 		int sizeRua = lista.size();
+		int a = sizeRua - 1;
+ 
 		int b = sizeRua; 
-		
-		System.out.println("lista: "+sizeRua);
 		String[] ruasLista = new String[b];
-		 
-		if(lista.size()==0) {
-			cities.add("<option>Cadastre uma Rua</option>");
-		} 
 		
+		if (lista.size() == 0) {
+			// cities.add("<option>Cadastre uma Rua</option>");
+			System.out.println("teste");
+
+			System.out.println("lista vazia");
+			
+			 
+			 
+		} else {
+
+			int contador = 0;
+			for (TabelaDescricaoRua tarefa : lista) {
+				System.out.println("rua teste: " + tarefa.getNomeDaRua());
+				cities.add(tarefa.getNomeDaRua());
+
+				if (contador <= a) {
+
+					ruasLista[contador] = tarefa.getNomeDaRua();
+					System.out.println("contador" + contador);
+					System.out.println("Rua: " + ruasLista[a]);
+					contador++;
+				}
+			}
+
+			System.out.println("lista rua: "+ruasLista.length);
+			 
+		} // else
+		System.out.println("lista: " + sizeRua);
+		
+		
+		if(lista.size() ==0) {
+
+			ruasLista = new String[1];
+			ruasLista[0] = "Cadastre uma cidade";
+
+			 try (PrintWriter out = response.getWriter()) {
+				 
+		            Gson gson = new GsonBuilder()
+		                    .excludeFieldsWithoutExposeAnnotation()
+		                    .create();
+
+		            out.print(gson.toJson(ruasLista));
+		        }  
+
+			
+		} // if
 		else {
-			cities.add("Listando ruas");
-		}  
-		
-		
-		System.out.println("id do bairro: "+lista.get(0).getTabelaBairro().getIdBairro());
-		System.out.println("descrição rua: "+lista.size());
-		    
-		int a = sizeRua-1;
-		int contador = 0;
-		
-   
-		for (TabelaDescricaoRua tarefa : lista) {  
-			   System.out.println("rua teste: "+tarefa.getNomeDaRua());
-			cities.add(tarefa.getNomeDaRua());
-		 
-			if(contador <= a ) {
-		 		  
-				ruasLista[contador]= tarefa.getNomeDaRua();
-				System.out.println("contador"+contador);
-				System.out.println("Rua: "+ruasLista[a]);
-				contador++;  
-			} 
+			 try (PrintWriter out = response.getWriter()) {
+				 
+		            Gson gson = new GsonBuilder()
+		                    .excludeFieldsWithoutExposeAnnotation()
+		                    .create();
+
+		            out.print(gson.toJson(ruasLista));
+		        }  
+	  
+	
+			
 		}
 		 
-		 
-		System.out.println("lista rua: "+ruasLista.length);
 		
-		 try (PrintWriter out = response.getWriter()) {
-			 
-	            Gson gson = new GsonBuilder()
-	                    .excludeFieldsWithoutExposeAnnotation()
-	                    .create();
-
-	            out.print(gson.toJson(ruasLista));
-	        } 
-		   
-		 
-	}
-  
+			}
+ 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -345,68 +360,59 @@ public class Cidade<E> extends HttpServlet {
 
 			System.out.println("tamanho da lista cidades: " + cities.size());
 
-
-			 if (cities.size()==0) {
+			if (cities.size() == 0) {
 				cities.add("<option>vazio</option");
 			}
- 
-			   try (PrintWriter out = response.getWriter()) {
 
-		            Gson gson = new GsonBuilder()
-		                    .excludeFieldsWithoutExposeAnnotation()
-		                    .create();
+			try (PrintWriter out = response.getWriter()) {
 
-		            out.print(gson.toJson(cities));
-		        }
-			 
-			 
+				Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
+				out.print(gson.toJson(cities));
+			}
+
 			break;
 
 		case "bairros":
-		    System.out.println("listar bairros");
-		    String cidade = request.getParameter("id");
-		    String estado = request.getParameter("estado");
-		    System.out.println("cidade: "+cidade);
-		    System.out.println("estado: "+estado); 
-		    
-		    List bairros =listarBairros(estado, cidade);
-		    
-		    if (bairros.size()==0) {
+			System.out.println("listar bairros");
+			String cidade = request.getParameter("id");
+			String estado = request.getParameter("estado");
+			System.out.println("cidade: " + cidade);
+			System.out.println("estado: " + estado);
+
+			List bairros = listarBairros(estado, cidade);
+
+			if (bairros.size() == 0) {
 				bairros.add("<option>vazio</option");
 			}
- 
-			   try (PrintWriter out = response.getWriter()) {
 
-		            Gson gson = new GsonBuilder()
-		                    .excludeFieldsWithoutExposeAnnotation()
-		                    .create();
+			try (PrintWriter out = response.getWriter()) {
 
-		            out.print(gson.toJson(bairros));
-		        } 
-		    
-		    break; 
-			
-		case "logradouro":
-			
-			
-			String[] lista = new String[2];
-			
-			lista[0]="cidade";
-			lista[1]="cidade";
-			
-			System.out.println("lista de ruas");
-			 
-			  try (PrintWriter out = response.getWriter()) {
- 
-		            Gson gson = new GsonBuilder()
-		                    .excludeFieldsWithoutExposeAnnotation()
-		                    .create();
- 
-		            out.print(gson.toJson(lista));
-		        } 
-			
+				Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
+				out.print(gson.toJson(bairros));
+			}
+
 			break;
-		    
+
+		case "logradouro":
+
+			String[] lista = new String[2];
+
+			lista[0] = "cidade";
+			lista[1] = "cidade";
+
+			System.out.println("lista de ruas");
+
+			try (PrintWriter out = response.getWriter()) {
+
+				Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
+				out.print(gson.toJson(lista));
+			}
+
+			break;
+
 		default:
 			break;
 		}
