@@ -243,39 +243,41 @@ public class Cidade<E> extends HttpServlet {
 		String[] ruas = new String[1];
 		ruas[0]="cidade";
 		
-	 		 
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
 		EntityManager manager = factory.createEntityManager();
 
 		
-		TabelaBairro bairro = new TabelaBairro();
+		//TabelaBairro bairro = new TabelaBairro();
 
+		TabelaDescricaoRua listarua = new TabelaDescricaoRua();
+		
 		// TabelaEstado estado = manager.find(uf.getClass(), 1);
 		// System.out.println(estado.getTabelaCidades().get(0));
 
-		String sql = "SELECT t FROM TabelaBairro t where id_bairro='" +teste+"' and t.nomeBairro='aldeota'";
-		  
+		//String sql = "SELECT t FROM TabelaBairro t where id_bairro='1' and t.nomeBairro like '%ald%'";
+		String sql = "SELECT t FROM TabelaDescricaoRua t where id_bairro='1' and t.nomeDaRua like '%avenida%'";
+		// and t.nomeBairro like '%ald%'
 		System.out.println("sql: "+sql);     
- 		        
+ 		         
 		Query query = manager.createQuery(sql); 
-		List<TabelaBairro> lista = query.getResultList();
+		List<TabelaDescricaoRua> lista = query.getResultList();
 		     
-		System.out.println("lista tabela: "+lista.get(0).getTabelaDescricaoRuas().size());
+		System.out.println("lista tabela: "+lista.size());
 		   
-		System.out.println("rua: lista "+ruas.length);
+		//System.out.println("rua: lista "+ruas.length);
 		
  
-		//List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas();
-		List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas(); 
+		 //List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas();
+		//List<TabelaDescricaoRua> c = lista.get(0).get; 
 		List cities = new ArrayList();
 		// cities.add("cidade");
-		int sizeRua = c.size();
+		int sizeRua = lista.size();
 		int b = sizeRua; 
 		
 		System.out.println("lista: "+sizeRua);
 		String[] ruasLista = new String[b];
 		 
-		if(c.size()==0) {
+		if(lista.size()==0) {
 			cities.add("<option>Cadastre uma Rua</option>");
 		} 
 		
@@ -284,20 +286,20 @@ public class Cidade<E> extends HttpServlet {
 		}  
 		
 		
-		System.out.println("id do bairro: "+lista.get(0).getTabelaDescricaoRuas().get(0).getNomeDaRua());
-		System.out.println("descrição rua: "+c.size());
+		System.out.println("id do bairro: "+lista.get(0).getTabelaBairro().getIdBairro());
+		System.out.println("descrição rua: "+lista.size());
 		    
 		int a = sizeRua-1;
 		int contador = 0;
 		
    
-		for (TabelaDescricaoRua tarefa : c) {  
+		for (TabelaDescricaoRua tarefa : lista) {  
 			   System.out.println("rua teste: "+tarefa.getNomeDaRua());
 			cities.add(tarefa.getNomeDaRua());
 		 
 			if(contador <= a ) {
 		 		  
-				ruasLista[contador]= Integer.toString(tarefa.getTabelaBairro().getIdBairro());
+				ruasLista[contador]= tarefa.getNomeDaRua();
 				System.out.println("contador"+contador);
 				System.out.println("Rua: "+ruasLista[a]);
 				contador++;  
