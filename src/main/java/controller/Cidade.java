@@ -247,24 +247,24 @@ public class Cidade<E> extends HttpServlet {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
 		EntityManager manager = factory.createEntityManager();
 
+		
 		TabelaBairro bairro = new TabelaBairro();
 
 		// TabelaEstado estado = manager.find(uf.getClass(), 1);
 		// System.out.println(estado.getTabelaCidades().get(0));
 
-		String sql = "SELECT t FROM TabelaBairro t where id_bairro='" +teste+"'";
-		
-		System.out.println("sql: "+sql);  
- 		    
-		List<TabelaBairro> lista = manager.createQuery(sql).getResultList();
- 
-		
-		
+		String sql = "SELECT t FROM TabelaBairro t where id_bairro='" +teste+"' and t.nomeBairro='aldeota'";
+		  
+		System.out.println("sql: "+sql);     
+ 		        
+		Query query = manager.createQuery(sql); 
+		List<TabelaBairro> lista = query.getResultList();
+		     
 		System.out.println("lista tabela: "+lista.get(0).getTabelaDescricaoRuas().size());
-		
+		   
 		System.out.println("rua: lista "+ruas.length);
 		
-
+ 
 		//List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas();
 		List<TabelaDescricaoRua> c = lista.get(0).getTabelaDescricaoRuas(); 
 		List cities = new ArrayList();
@@ -284,20 +284,20 @@ public class Cidade<E> extends HttpServlet {
 		}  
 		
 		
-		System.out.println("id do bairro: "+lista.get(0).getTabelaCidade().getNomeCidade());
+		System.out.println("id do bairro: "+lista.get(0).getTabelaDescricaoRuas().get(0).getNomeDaRua());
 		System.out.println("descrição rua: "+c.size());
 		    
 		int a = sizeRua-1;
 		int contador = 0;
 		
-
+   
 		for (TabelaDescricaoRua tarefa : c) {  
 			   System.out.println("rua teste: "+tarefa.getNomeDaRua());
 			cities.add(tarefa.getNomeDaRua());
 		 
 			if(contador <= a ) {
-		 		 
-				ruasLista[contador]= tarefa.getNomeDaRua() ;
+		 		  
+				ruasLista[contador]= Integer.toString(tarefa.getTabelaBairro().getIdBairro());
 				System.out.println("contador"+contador);
 				System.out.println("Rua: "+ruasLista[a]);
 				contador++;  
