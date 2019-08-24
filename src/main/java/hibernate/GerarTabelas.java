@@ -7,6 +7,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import model.TabelaCliente;
+
 public class GerarTabelas {
 
 	
@@ -20,13 +22,13 @@ public class GerarTabelas {
 
 		//TabelaCliente teste = new TabelaCliente();
  
-		List<TabelaCliente> teste = cliente.listarClientes(); 
+		//List<TabelaCliente> teste = cliente.listarClientes(); 
 		 
 		
-         for (TabelaCliente t : teste) {
+       /*  for (TabelaCliente t : teste) {
             System.out.println(t.getNomeCliente());
         }
- 
+ */
        
 	}
 

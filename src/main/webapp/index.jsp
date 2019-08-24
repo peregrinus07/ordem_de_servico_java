@@ -36,7 +36,7 @@
 <body>
 
 <%@include file="template/menu.jsp" %>
-
+<!-- 
 	<h1>
 		horas :
 		<%=new SimpleDateFormat("hh:mm:ss").format(new Date())%></h1>
@@ -60,7 +60,7 @@
             <input type="submit" value="Enviar"/>
  
         </form>
-        
+      -->   
         
       <form name="formulario"   id="formulario" class="form-group" style="border:10px; margin-left: 50px; margin-top: 75px;" action="CadastrarCliente" method="POST">
    
