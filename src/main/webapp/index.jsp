@@ -53,7 +53,7 @@
 	<br>	<%=new Date()%></body>
 	
 	
-	<form action="trataform.jsp" method="post">
+	<form action="CadastrarCliente" method="post">
             Nome:<input type="text" name="txtnome"/><br>
             E-Mail:<input type="text" name="txtemail"/><br>
             Data de Nascimento:<input type="text" name="txtdtnasc"/><br>
@@ -62,7 +62,7 @@
         </form>
         
         
-      <form name="formulario"   id="formulario" class="form-group" style="border:10px; margin-left: 50px; margin-top: 75px;" action="cadastrarClienteMysql.php" method="POST">
+      <form name="formulario"   id="formulario" class="form-group" style="border:10px; margin-left: 50px; margin-top: 75px;" action="CadastrarCliente" method="POST">
    
       <legend style="">Cadastrar Cliente</legend>
 
