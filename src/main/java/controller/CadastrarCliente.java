@@ -3,13 +3,17 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hibernate.TabelaCliente;
+import model.TabelaCliente;
+ 
 
 /**
  * Servlet implementation class CadastrarCliente
@@ -73,8 +77,18 @@ public class CadastrarCliente extends HttpServlet {
 		cliente.setEMailCliente(email);
 		cliente.setTelefoneCliente(telefone);
 		cliente.setCpfCnpjCliente(cpf);
-		cliente.set
+		//cliente.set
 		
+		 EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
+		    EntityManager manager = factory.createEntityManager();
+
+		    manager.getTransaction().begin();        
+		    manager.persist(cliente);
+		    manager.getTransaction().commit();    
+
+		    //System.out.println("ID da tarefa: " + cliente.getIdCliente());
+
+		    manager.close();  
 	}
  
 }
