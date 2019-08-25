@@ -45,13 +45,6 @@ public class main {
 	public void listarCidades() {
 
 		
-		 
-			
-
-	}
-	
-	public static void main(String[] args) {
-
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
 		EntityManager manager = factory.createEntityManager();
 
@@ -111,6 +104,23 @@ public class main {
 				contador++;  
 			} 
 		}
+		
+			
+
+	}
+	
+	public static void main(String[] args) {
+
+		
+		String listando = new String();
+		
+		listando = "1.200,20";
+		
+		String str = new String();
+		
+		str = listando.replace(".", ""); 
+		
+		System.out.println("listando: "+str.replace(",", "."));
 		
 		
 
