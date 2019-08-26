@@ -111,7 +111,7 @@ public class CadastrarProduto extends HttpServlet {
 		
 		//BigDecimal  = new BigDecimal(string);
 		
-		System.out.println(string);
+		//System.out.println(string);
 		
 		 EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
 		    EntityManager manager = factory.createEntityManager();

@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -23,6 +24,10 @@ public class TabelaDescricaoRua implements Serializable {
 
 	@Column(name="nome_da_rua")
 	private String nomeDaRua;
+
+	//bi-directional many-to-one association to TabelaCepRua
+	@OneToMany(mappedBy="tabelaDescricaoRua")
+	private List<TabelaCepRua> tabelaCepRuas;
 
 	//bi-directional many-to-one association to TabelaBairro
 	@ManyToOne
@@ -54,6 +59,28 @@ public class TabelaDescricaoRua implements Serializable {
 
 	public void setNomeDaRua(String nomeDaRua) {
 		this.nomeDaRua = nomeDaRua;
+	}
+
+	public List<TabelaCepRua> getTabelaCepRuas() {
+		return this.tabelaCepRuas;
+	}
+
+	public void setTabelaCepRuas(List<TabelaCepRua> tabelaCepRuas) {
+		this.tabelaCepRuas = tabelaCepRuas;
+	}
+
+	public TabelaCepRua addTabelaCepRua(TabelaCepRua tabelaCepRua) {
+		getTabelaCepRuas().add(tabelaCepRua);
+		tabelaCepRua.setTabelaDescricaoRua(this);
+
+		return tabelaCepRua;
+	}
+
+	public TabelaCepRua removeTabelaCepRua(TabelaCepRua tabelaCepRua) {
+		getTabelaCepRuas().remove(tabelaCepRua);
+		tabelaCepRua.setTabelaDescricaoRua(null);
+
+		return tabelaCepRua;
 	}
 
 	public TabelaBairro getTabelaBairro() {

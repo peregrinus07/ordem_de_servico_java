@@ -28,7 +28,7 @@ menu
       <a class="dropdown-item" href="cadastrarProduto.jsp">Produto</a>
       <!-- <a class="dropdown-item" href="cadastrarData.php">Cadastrar Data</a>
       -->
-      <a class="dropdown-item" href="cadastrarEndereco.php">Cadastrar Endereço</a>
+      <a class="dropdown-item" href="cadastrarEndereco.jsp">Cadastrar Endereço</a>
      
      <!-- 
      <a class="dropdown-item" href="cadastrarEstado.php">Cadastrar Estado</a>
