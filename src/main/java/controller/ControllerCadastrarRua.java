@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ObjetoDeAcessoAosDados.RuaAcessoAosDados;
 import model.TabelaBairro;
 import model.TabelaCepRua;
 import model.TabelaDescricaoRua;
@@ -87,21 +88,12 @@ public class ControllerCadastrarRua extends HttpServlet {
 
 		c.setCepRua(cep);
 
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
-		EntityManager manager = factory.createEntityManager();
-
-		manager.getTransaction().begin();
-		manager.persist(rua);
-
-		manager.getTransaction().commit();
-
-		int id = rua.getIdDescricaoRua();
-
-		System.out.println("descricao rua: " + id);
-
-		// System.out.println("ID da tarefa: " + cliente.getIdCliente());
-
-		manager.close();
+		
+		RuaAcessoAosDados r = new RuaAcessoAosDados();
+		
+		r.cadastrarRua(rua);
+		
+		
 
 	}
 
