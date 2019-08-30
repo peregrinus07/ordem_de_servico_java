@@ -51,9 +51,6 @@ public class ControllerCadastrarRua extends HttpServlet {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
 
-		PrintWriter out = response.getWriter();
-		out.println("<script>alert('rua cadastrada com sucesso')</script>");
-
 		System.out.println("Cadastrar Rua");
 
 		String estado = request.getParameter("estado");
@@ -73,6 +70,8 @@ public class ControllerCadastrarRua extends HttpServlet {
 		TabelaDescricaoRua rua = new TabelaDescricaoRua();
 		TabelaBairro b = new TabelaBairro();
 
+		// TabelaCepRua c = new TabelaCepRua();
+
 		int i = 1;
 		i = Integer.parseInt(bairro.trim());
 
@@ -84,16 +83,25 @@ public class ControllerCadastrarRua extends HttpServlet {
 		rua.setNomeDaRua(endereco);
 		rua.setTabelaBairro(b);
 
-		TabelaCepRua c = new TabelaCepRua();
+		TabelaCepRua ce = new TabelaCepRua();
 
-		c.setCepRua(cep);
+		ce.setCepRua(cep);
 
-		
 		RuaAcessoAosDados r = new RuaAcessoAosDados();
-		
-		r.cadastrarRua(rua);
-		
-		
+
+		boolean teste = r.cadastrarRua(rua);
+
+		if (teste) {
+
+			System.out.println("Teste");
+
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('rua cadastrada com sucesso')</script>");
+			System.out.println("Rua cadastrada com sucesso");
+
+		} else {
+			System.out.println("erro ao cadastrar rua");
+		}
 
 	}
 
