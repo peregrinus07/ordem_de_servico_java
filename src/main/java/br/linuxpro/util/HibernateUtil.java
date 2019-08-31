@@ -6,6 +6,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import model.TabelaCliente;
+import model.TabelaProduto;
 
 public class HibernateUtil {
 
@@ -24,6 +25,7 @@ public class HibernateUtil {
 			ServiceRegistry registro = new StandardServiceRegistryBuilder().applySettings(configuracao.getProperties()).build();
 
 			configuracao.addAnnotatedClass(TabelaCliente.class); 
+			configuracao.addAnnotatedClass(TabelaProduto.class);
 			
 			SessionFactory fabrica = configuracao.buildSessionFactory(registro);
 			

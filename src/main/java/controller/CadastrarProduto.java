@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.linuxpro.hibernate.acessoAosDados.ProdutoDb;
 import model.TabelaProduto;
 
 /**
@@ -60,7 +61,7 @@ public class CadastrarProduto extends HttpServlet {
 		String nomeProduto = request.getParameter("nomeProduto");
 		String precoCompraProduto = request.getParameter("precoCompraProduto");
 		String precoProdutoVenda = request.getParameter("precoProdutoVenda");
-		String cpf = request.getParameter("quantidade");
+		String quantidade = request.getParameter("quantidade");
 		String dataDeEntradaProduto = request.getParameter("data");
 		String descricaoProduto = request.getParameter("descricaoProduto");
 
@@ -76,21 +77,28 @@ public class CadastrarProduto extends HttpServlet {
 
 		listando = "1.200,20";
 
-		String str = new String();
-
-		str = precoCompraProduto.replace(".", "");
+		// preco do produto compra
+		String str = precoCompraProduto.replace(".", "");
 
 		String string = str.replace(",", ".");
-		
-		System.out.println("String: "+string);
-		
+
+		System.out.println("String preço de compra do produto: " + string);
+
+		// preco de venda produto 
+		String str2 = precoProdutoVenda.replace(".", "");
+
+		String string2 = str2.replace(",", ".");
+
+		System.out.println("String preço de venda do produto: " + string2);
+		System.out.println("preço de venda: "+precoProdutoVenda);
 		
 		TabelaProduto produto = new TabelaProduto();
 		BigDecimal preco = new BigDecimal(string);
 		produto.setNomeProduto(nomeProduto);
-		produto.setPrecoDeCompraProduto(preco);
-		produto.setPrecoDeVendaProduto(preco);
-		
+		produto.setPrecoDeCompraProduto(new BigDecimal(string));
+		produto.setPrecoDeVendaProduto(new BigDecimal(string2));
+		 
+		produto.setQuantidadeEntradaProduto(Integer.parseInt(quantidade));
 		//SimpleDateFormat formato = new SimpleDateFormat(dataDeEntradaProduto); 
 		//SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd"); 
 		//Date data = formato.parse("23/11/2015");
@@ -109,20 +117,15 @@ public class CadastrarProduto extends HttpServlet {
 		
 		produto.setDescricaoProduto(descricaoProduto);
 		
-		//BigDecimal  = new BigDecimal(string);
 		
-		//System.out.println(string);
+		ProdutoDb db = new ProdutoDb();
 		
-		 EntityManagerFactory factory = Persistence.createEntityManagerFactory("hibernate");
-		    EntityManager manager = factory.createEntityManager();
-
-		    manager.getTransaction().begin();        
-		    manager.persist(produto);
-		    manager.getTransaction().commit();    
-
-		    //System.out.println("ID da tarefa: " + cliente.getIdCliente());
-
-		    manager.close();  
+		db.salvar(produto);
+		
+		System.out.println("quantidade: "+produto.getQuantidadeEntradaProduto()); 
+		
+		System.out.println("id: "+produto.getIdProduto());
+		 
 		
 		// BigDecimal b = new BigDecimal(numero);
 		// BigDecimal bres = new BigDecimal("450.23");
