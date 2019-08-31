@@ -158,4 +158,32 @@ public class AcessoAosDadosGenerico<Ob> {
 
 	} // function
 
+	public void merge(Ob ob) {
+
+		Session session = HibernateUtil.getFabricaDeSessoes().openSession();
+		Transaction transacao = null;
+
+		try {
+
+			transacao = session.beginTransaction();
+
+			session.merge(ob);
+			transacao.commit();
+
+		} catch (RuntimeException e) {
+			// TODO: handle exception
+
+			if (transacao != null)
+				transacao.rollback();
+			throw e;
+
+		}
+
+		finally {
+			session.close();
+
+		}
+
+	} // function
+
 }
