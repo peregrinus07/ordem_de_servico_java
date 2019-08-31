@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ObjetoDeAcessoAosDados.RuaAcessoAosDados;
 import model.TabelaBairro;
 import model.TabelaCepRua;
 import model.TabelaDescricaoRua;
@@ -87,22 +86,20 @@ public class ControllerCadastrarRua extends HttpServlet {
 
 		ce.setCepRua(cep);
 
-		RuaAcessoAosDados r = new RuaAcessoAosDados();
+		// RuaAcessoAosDados r = new RuaAcessoAosDados();
 
-		boolean teste = r.cadastrarRua(rua);
-
-		if (teste) {
-
-			System.out.println("Teste");
-
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('rua cadastrada com sucesso')</script>");
-			System.out.println("Rua cadastrada com sucesso");
-
-		} else {
-			System.out.println("erro ao cadastrar rua");
-		}
-
+		// boolean teste = r.cadastrarRua(rua);
+		/*
+		 * if (teste) {
+		 * 
+		 * System.out.println("Teste");
+		 * 
+		 * PrintWriter out = response.getWriter();
+		 * out.println("<script>alert('rua cadastrada com sucesso')</script>");
+		 * System.out.println("Rua cadastrada com sucesso");
+		 * 
+		 * } else { System.out.println("erro ao cadastrar rua"); }
+		 */
 	}
 
 }
