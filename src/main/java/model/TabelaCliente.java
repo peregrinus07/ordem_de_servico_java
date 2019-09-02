@@ -13,9 +13,10 @@ import javax.persistence.*;
 @NamedQuery(name="TabelaCliente.findAll", query="SELECT t FROM TabelaCliente t")
 public class TabelaCliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
+																						
+	@Id																																		
 	@Column(name="id_cliente")
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private int idCliente;
 
 	@Column(name="cpf_cnpj_cliente")
