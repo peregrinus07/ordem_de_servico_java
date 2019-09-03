@@ -3,32 +3,31 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 /**
  * The persistent class for the tabela_clientes database table.
  * 
  */
 @Entity
-@Table(name="tabela_clientes")
-@NamedQuery(name="TabelaCliente.findAll", query="SELECT t FROM TabelaCliente t")
+@Table(name = "tabela_clientes")
+@NamedQuery(name = "TabelaCliente.findAll", query = "SELECT t FROM TabelaCliente t")
 public class TabelaCliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-																						
-	@Id																																		
-	@Column(name="id_cliente")
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+
+	@Id
+	@Column(name = "id_cliente")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idCliente;
 
-	@Column(name="cpf_cnpj_cliente")
+	@Column(name = "cpf_cnpj_cliente")
 	private String cpfCnpjCliente;
 
-	@Column(name="e_mail_cliente")
+	@Column(name = "e_mail_cliente")
 	private String eMailCliente;
 
-	@Column(name="nome_cliente")
+	@Column(name = "nome_cliente")
 	private String nomeCliente;
 
-	@Column(name="telefone_cliente")
+	@Column(name = "telefone_cliente")
 	private String telefoneCliente;
 
 	public TabelaCliente() {

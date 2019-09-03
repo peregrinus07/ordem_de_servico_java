@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.linuxpro.hibernate.acessoAosDados.DescricaoDaRuaDb;
 import model.TabelaBairro;
 import model.TabelaCepRua;
 import model.TabelaDescricaoRua;
@@ -76,6 +78,7 @@ public class ControllerCadastrarRua extends HttpServlet {
 
 		System.out.println("bairro: " + bairro);
 
+		// bairro id
 		b.setIdBairro(i);
 
 		rua.setFkIdTipoDaRua(1);
@@ -84,8 +87,15 @@ public class ControllerCadastrarRua extends HttpServlet {
 
 		TabelaCepRua ce = new TabelaCepRua();
 
+		// adicionando o cep da rua ao cep_da_rua
 		ce.setCepRua(cep);
-
+ 
+		DescricaoDaRuaDb ruaDb = new DescricaoDaRuaDb();
+		
+		ruaDb.salvar(rua);
+		
+		
+		
 		// RuaAcessoAosDados r = new RuaAcessoAosDados();
 
 		// boolean teste = r.cadastrarRua(rua);

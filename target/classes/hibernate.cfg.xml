@@ -15,7 +15,11 @@
 		<!-- Livro -->
 		<!-- <mapping class="br.com.meuprojeto.bean.Livro" /> -->
 
-		<mapping class="model.TabelaCliente" /> 
+		<mapping class="model.TabelaCliente" />
+		<mapping class="model.TabelaDescricaoRua" />
+		<mapping class="model.TabelaEstado" />
+		<mapping class="model.TabelaCepRua" />
+
 
 	</session-factory>
 </hibernate-configuration>
