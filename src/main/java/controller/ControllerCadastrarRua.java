@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.linuxpro.hibernate.acessoAosDados.CepDaRuaDb;
 import br.linuxpro.hibernate.acessoAosDados.DescricaoDaRuaDb;
 import model.TabelaBairro;
 import model.TabelaCepRua;
@@ -85,17 +87,31 @@ public class ControllerCadastrarRua extends HttpServlet {
 		rua.setNomeDaRua(endereco);
 		rua.setTabelaBairro(b);
 
-		TabelaCepRua ce = new TabelaCepRua();
+		TabelaCepRua cepRua = new TabelaCepRua();
 
 		// adicionando o cep da rua ao cep_da_rua
-		ce.setCepRua(cep);
- 
+		cepRua.setCepRua(cep);
+
 		DescricaoDaRuaDb ruaDb = new DescricaoDaRuaDb();
-		
+
+		List<TabelaCepRua> cepDaRua = new ArrayList<TabelaCepRua>();
+
+		cepDaRua.add(cepRua);
+
+		rua.setTabelaCepRuas(cepDaRua);
+
 		ruaDb.salvar(rua);
+
+		CepDaRuaDb cepDb = new CepDaRuaDb();
+
 		
+		cepRua.setTabelaDescricaoRua(rua);
 		
-		
+		cepDb.salvar(cepRua);
+
+		System.out.println("id da rua: " + rua.getIdDescricaoRua());
+		System.out.println("id cep da rua: " + cepRua.getIdCepRua());
+
 		// RuaAcessoAosDados r = new RuaAcessoAosDados();
 
 		// boolean teste = r.cadastrarRua(rua);

@@ -6,6 +6,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import model.TabelaBairro;
+import model.TabelaCepRua;
+import model.TabelaCidade;
 import model.TabelaCliente;
 import model.TabelaDescricaoRua;
 import model.TabelaProduto;
@@ -31,6 +33,8 @@ public class HibernateUtil {
 			configuracao.addAnnotatedClass(TabelaProduto.class);
 			configuracao.addAnnotatedClass(TabelaDescricaoRua.class);
 			configuracao.addAnnotatedClass(TabelaBairro.class);
+			configuracao.addAnnotatedClass(TabelaCidade.class);
+			configuracao.addAnnotatedClass(TabelaCepRua.class);
 			
 			SessionFactory fabrica = configuracao.buildSessionFactory(registro);
 

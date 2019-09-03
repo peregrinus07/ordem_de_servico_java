@@ -16,6 +16,7 @@ public class TabelaCepRua implements Serializable {
 
 	@Id
 	@Column(name="id_cep_rua")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idCepRua;
 
 	@Column(name="cep_rua")

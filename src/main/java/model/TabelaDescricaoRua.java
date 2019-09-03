@@ -17,6 +17,7 @@ public class TabelaDescricaoRua implements Serializable {
 
 	@Id
 	@Column(name="id_descricao_rua")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idDescricaoRua;
 
 	@Column(name="fk_id_tipo_da_rua")
