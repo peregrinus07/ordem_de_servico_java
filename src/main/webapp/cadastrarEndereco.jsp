@@ -38,7 +38,7 @@
 
 		if (cont == 2) {
 
-			$(".conteudo").load('cadastrarCidade.php');
+			$(".conteudo").load('cadastrarCidade.jsp');
 
 		} // if
 
