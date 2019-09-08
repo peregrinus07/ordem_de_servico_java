@@ -104,9 +104,8 @@ public class ControllerCadastrarRua extends HttpServlet {
 
 		CepDaRuaDb cepDb = new CepDaRuaDb();
 
-		
 		cepRua.setTabelaDescricaoRua(rua);
-		
+
 		cepDb.salvar(cepRua);
 
 		System.out.println("id da rua: " + rua.getIdDescricaoRua());

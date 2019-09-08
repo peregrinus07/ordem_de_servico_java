@@ -46,7 +46,7 @@
 
 			console.log("teste")
 
-			$(".conteudo").load('cadastrarBairro.php');
+			$(".conteudo").load('cadastrarBairro.jsp');
 
 		} // if
 

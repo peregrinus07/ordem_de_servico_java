@@ -14,7 +14,7 @@
       <div id="formularioRua" style="">
   
       <form style="border:10px; margin-left: 400px; margin-top: 80px;" action="
-      cadastrarEnderecoPhpMysql.php" method="POST">
+      ControllerCadastrarCidade" method="POST">
    
       <legend style="">Cadastrar Cidade</legend>
 
@@ -113,7 +113,6 @@
    
     </form>
  
-
     </div> <!-- formulario rua -->   
        </div><!-- cadastrar bairro -->
 
