@@ -4,7 +4,7 @@ $( document ).ready(function() {
  $("#estados").change(function() {
     //$('#pesquisaCliente').keyup(function(){
          
-
+ 
         // input[name='pesquisaCliente'
          var $nomeAluno = $("#estados");
 
@@ -43,6 +43,7 @@ $( document ).ready(function() {
                     $("#cidades").css({'display':'block'});
                     $("#cidades").html("Houve um erro ao carregar");
                     console.log("erro ao carregar cidades");  
+                     
                 }
 
         }); // estados

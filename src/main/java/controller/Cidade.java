@@ -269,18 +269,16 @@ public class Cidade<E> extends HttpServlet {
 		// cities.add("cidade");
 		int sizeRua = lista.size();
 		int a = sizeRua - 1;
- 
-		int b = sizeRua; 
+
+		int b = sizeRua;
 		String[] ruasLista = new String[b];
-		
+
 		if (lista.size() == 0) {
 			// cities.add("<option>Cadastre uma Rua</option>");
 			System.out.println("teste");
 
 			System.out.println("lista vazia");
-			
-			 
-			 
+
 		} else {
 
 			int contador = 0;
@@ -297,45 +295,36 @@ public class Cidade<E> extends HttpServlet {
 				}
 			}
 
-			System.out.println("lista rua: "+ruasLista.length);
-			 
+			System.out.println("lista rua: " + ruasLista.length);
+
 		} // else
 		System.out.println("lista: " + sizeRua);
-		
-		
-		if(lista.size() ==0) {
+
+		if (lista.size() == 0) {
 
 			ruasLista = new String[1];
 			ruasLista[0] = "Cadastre uma cidade";
 
-			 try (PrintWriter out = response.getWriter()) {
-				 
-		            Gson gson = new GsonBuilder()
-		                    .excludeFieldsWithoutExposeAnnotation()
-		                    .create();
+			try (PrintWriter out = response.getWriter()) {
 
-		            out.print(gson.toJson(ruasLista));
-		        }  
+				Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
-			
+				out.print(gson.toJson(ruasLista));
+			}
+
 		} // if
 		else {
-			 try (PrintWriter out = response.getWriter()) {
-				 
-		            Gson gson = new GsonBuilder()
-		                    .excludeFieldsWithoutExposeAnnotation()
-		                    .create();
+			try (PrintWriter out = response.getWriter()) {
 
-		            out.print(gson.toJson(ruasLista));
-		        }  
-	  
-	
-			
-		}
-		 
-		
+				Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
+				out.print(gson.toJson(ruasLista));
 			}
- 
+
+		}
+
+	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -345,6 +334,8 @@ public class Cidade<E> extends HttpServlet {
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
+
+		System.out.println("controller cidade");
 
 		String name = request.getParameter("logradouro");
 
@@ -414,6 +405,7 @@ public class Cidade<E> extends HttpServlet {
 			break;
 
 		default:
+
 			break;
 		}
 	}

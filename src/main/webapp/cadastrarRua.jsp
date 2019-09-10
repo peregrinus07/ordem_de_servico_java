@@ -7,8 +7,7 @@
 <title>Cadastrar Rua</title>
 
 <script src="./js/listarCidades.js"></script>
-
-
+ 
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("input[name='cep'").mask("99.999-999");

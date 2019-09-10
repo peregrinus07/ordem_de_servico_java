@@ -1,162 +1,161 @@
+$(document).ready(
+		function() {
 
-$( document ).ready(function() {
+			$("#estados").change(function() {
+				// $('#pesquisaCliente').keyup(function(){
 
-    
+				// input[name='pesquisaCliente'
+				var $nomeAluno = $("#estados");
 
- $("#estados").change(function() {
-    //$('#pesquisaCliente').keyup(function(){
-         
+				var $teste = $("#estados");
+				// alert($teste.val());
+				// alert ($nomeAluno.val());
 
-        // input[name='pesquisaCliente'
-         var $nomeAluno = $("#estados");
+				alert();
 
+				$.ajax({
 
-          var $teste = $("#estados");
-          //alert($teste.val());
-          //alert ($nomeAluno.val());    
-
+					url : 'Cidade',
+					type : 'POST',
+					data : { id : $nomeAluno.val(), logradouro : "cidades"},
  
-        $.ajax({
+					beforeSend : function() {
 
+						$("#cidades").css({
+							'display' : 'block'
+						});
+						// $("body").html('<p>Carregando...</p>');
+						$("#cidades").html('<p>Carregando</p>');
 
-          url: 'bancoMysql.php',
-          type: 'POST',
-          data: {id: $nomeAluno.val()},
+					},
 
-          beforeSend: function(){
-          $("#cidades").css({'display':'block'});
-            //$("body").html('<p>Carregando...</p>');
-            $("#cidades").html('<p>Carregando</p>');
+					success : function(data) {
+						console.log(data);
+						$("#cidades").css({
+							'display' : 'block'
+						});
+						$("#cidades").html("");
+						$("#cidades").html(data);
 
-        },
+					},
 
-          success: function(data)
-                {
-                  console.log(data);
-                    $("#cidades").css({'display':'block'});
-                    $("#cidades").html("");
-                    $("#cidades").html(data);
-                     
-                },
+					error : function(data) {
 
-                 error: function(data)
-                {
+						$("#cidades").css({
+							'display' : 'block'
+						});
+						$("#cidades").html("Houve um erro ao carregar");
+						console.log("erro ao carregar cidades test");
 
-                    $("#cidades").css({'display':'block'});
-                    $("#cidades").html("Houve um erro ao carregar");
-                    console.log("erro ao carregar cidades");  
-                }
+					}
 
-        }); // estados
+				}); // estados
 
+			}); // estados
 
-    }); // estados
+			$("#cidades").change(function() {
 
-   $("#cidades").change(function() {
+				// alert();
 
-    //alert();
+				var $nomeAluno = $("#cidades");
 
-    var $nomeAluno = $("#cidades");
+				// alert($nomeCidade.val());
 
-    //alert($nomeCidade.val());
+				$.ajax({
 
-    $.ajax({
-        
-                  url: 'listar_bairros_jquery.php',
-                  type: 'POST',
-                  data: {id: $nomeAluno.val()},
-        
-                  beforeSend: function(){
-                  $("#bairro").css({'display':'block'});
-                    //$("body").html('<p>Carregando...</p>');
-                    $("#bairro").html('<p>Carregando</p>');
-        
-                },
-        
-                  success: function(data)
-                        {
-                          console.log(data);
-                            $("#bairro").css({'display':'block'});
-                            $("#bairro").html("");
-                            $("#bairro").html(data);
-                             
-                        },
-        
-                         error: function(data)
-                        {
-                             
-                            $("#bairro").css({'display':'block'});
-                            $("#bairro").html("Houve um erro ao carregar");
-                        }
-        
-                }); 
+					url : 'listar_bairros_jquery.php',
+					type : 'POST',
+					data : {
+						id : $nomeAluno.val()
+					},
 
+					beforeSend : function() {
+						$("#bairro").css({
+							'display' : 'block'
+						});
+						// $("body").html('<p>Carregando...</p>');
+						$("#bairro").html('<p>Carregando</p>');
 
-   }); // end cidades
+					},
 
+					success : function(data) {
+						console.log(data);
+						$("#bairro").css({
+							'display' : 'block'
+						});
+						$("#bairro").html("");
+						$("#bairro").html(data);
 
-        //listar endereços
-      $("#endereco").keyup(function(){
-       // alert("teste");
-        // select cidade
-        var cidade = $("#cidades option:selected").val();
+					},
 
+					error : function(data) {
 
-        if(cidade =="" || cidade =="registre uma cidade" || cidade==null){
+						$("#bairro").css({
+							'display' : 'block'
+						});
+						$("#bairro").html("Houve um erro ao carregar");
+					}
 
-             alert("Selecione uma Cidade");
+				});
 
-        }
+			}); // end cidades
 
-        else {
+			// listar endereços
+			$("#endereco").keyup(
+					function() {
+						// alert("teste");
+						// select cidade
+						var cidade = $("#cidades option:selected").val();
 
-         var bairro = $("#bairro option:selected").val();
+						if (cidade == "" || cidade == "registre uma cidade"
+								|| cidade == null) {
 
-         if(bairro =="" || bairro =="Selecione um bairro" || bairro==null){
+							alert("Selecione uma Cidade");
 
-             //alert("Selecione um bairro");
+						}
 
-         } // if
+						else {
 
+							var bairro = $("#bairro option:selected").val();
 
-        }
+							if (bairro == "" || bairro == "Selecione um bairro"
+									|| bairro == null) {
 
-        var rua = $("#endereco").val()
-        var teste = $("#bairro option:selected").val();
+								// alert("Selecione um bairro");
 
+							} // if
 
- 
-         //alert(teste);
+						}
 
-        //var QtdAcomodacaoD = $("#cidades option:selected").val();
+						var rua = $("#endereco").val()
+						var teste = $("#bairro option:selected").val();
 
-       //var QtdAcomodacaoD = "CE";
-      //  alert(QtdAcomodacaoD);
+						// alert(teste);
 
-    //var nome = $("#test").val();
+						// var QtdAcomodacaoD = $("#cidades
+						// option:selected").val();
 
-    //var nome =  $("#cidades").val();
+						// var QtdAcomodacaoD = "CE";
+						// alert(QtdAcomodacaoD);
 
-    //alert("Value: " + nome);
+						// var nome = $("#test").val();
 
-    //alert("uia");    
+						// var nome = $("#cidades").val();
 
+						// alert("Value: " + nome);
 
+						// alert("uia");
 
-    //console.log("bairro selecionado: "+teste);
-   $("#endereco").autocomplete({
-    
+						// console.log("bairro selecionado: "+teste);
+						$("#endereco").autocomplete(
+								{
 
+									// fonte dos dados
+									source : "buscar_endereco.php?rua=" + rua
+											+ "&teste=" + teste + "",
 
-     // fonte dos dados
-     source: "buscar_endereco.php?rua="+rua+"&teste=" + teste + "",
+								});
 
-      });
+					}); // listar ruas
 
-
-     }); // listar ruas
- 
-
-
-
-}); // end document
+		}); // end document
